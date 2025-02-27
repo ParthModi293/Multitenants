@@ -1,5 +1,6 @@
 package com.demo.multitenants.multitanants;
 
+
 public class TenantContext {
 
     private static final ThreadLocal<String> CURRENT_TENANT = new ThreadLocal<>();
@@ -9,6 +10,9 @@ public class TenantContext {
     }
 
     public static void setCurrentTenant(String tenant) {
+
         CURRENT_TENANT.set(tenant);
+        System.out.println(Thread.currentThread().getName() + ": Setting current tenant to " + tenant);
     }
+
 }

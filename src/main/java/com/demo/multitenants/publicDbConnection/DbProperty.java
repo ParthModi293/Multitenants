@@ -1,4 +1,3 @@
-/*
 package com.demo.multitenants.publicDbConnection;
 
 import jakarta.persistence.*;
@@ -6,7 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-@Table(name = "db_properties")
+@Table(name = "db_properties", catalog = "postgres", schema = "public")
 @Data
 public class DbProperty {
     @Id
@@ -33,4 +32,4 @@ public class DbProperty {
 
 
 
-}*/
+}
