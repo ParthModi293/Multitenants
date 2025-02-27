@@ -18,6 +18,9 @@ public class Controller {
     private EmployeeRepository employeeRepository;
 
     @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
     private ApplicationContext applicationContext;
 
 
@@ -61,11 +64,7 @@ public class Controller {
 
     @PostMapping(path = "/employeeTest")
     public ResponseEntity<?> createEmployeeTest() {
-
-        Employee newEmployee = new Employee();
-        newEmployee.setName("Baeldung");
-        employeeRepository.save(newEmployee);
-        return ResponseEntity.ok(newEmployee);
+        return ResponseEntity.ok(employeeService.save());
     }
 
 
