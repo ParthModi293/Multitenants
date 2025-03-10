@@ -1,18 +1,12 @@
 package com.demo.multitenants.multitanants;
 
 
-import com.demo.multitenants.publicDbConnection.DbProperty;
-import com.demo.multitenants.publicDbConnection.DbPropertyRepository;
-import com.demo.multitenants.publicDbConnection.TenantDatabaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;

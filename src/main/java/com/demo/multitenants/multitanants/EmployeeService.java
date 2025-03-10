@@ -1,5 +1,8 @@
+/*
 package com.demo.multitenants.multitanants;
 
+import com.clapcle.communication.entity.Employee;
+import com.clapcle.communication.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,3 +19,4 @@ public class EmployeeService {
     }
 
 }
+*/

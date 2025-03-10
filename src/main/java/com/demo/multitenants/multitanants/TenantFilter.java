@@ -1,6 +1,5 @@
 package com.demo.multitenants.multitanants;
 
-import com.demo.multitenants.publicDbConnection.DbPropertyRepository;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.annotation.Order;
@@ -12,13 +11,6 @@ import java.io.IOException;
 @Component
 @Order(1)
 class TenantFilter implements Filter {
-
-
-    private final DbPropertyRepository dbPropertyRepository;
-
-    public TenantFilter(DbPropertyRepository dbPropertyRepository) {
-        this.dbPropertyRepository = dbPropertyRepository;
-    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,

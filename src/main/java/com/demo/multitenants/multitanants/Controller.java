@@ -1,5 +1,8 @@
 package com.demo.multitenants.multitanants;
 
+import com.clapcle.communication.entity.Employee;
+import com.clapcle.communication.repository.EmployeeRepository;
+import com.clapcle.communication.service.EmployeeService;
 import com.demo.multitenants.publicDbConnection.DbProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -66,9 +69,6 @@ public class Controller {
     public ResponseEntity<?> createEmployeeTest() {
         return ResponseEntity.ok(employeeService.save());
     }
-
-
-
 
 }
 

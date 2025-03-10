@@ -7,19 +7,24 @@ import com.demo.multitenants.publicDbConnection.DbPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
+@ComponentScan({"com.clapcle.communication", "com.clapcle.core","com.demo.multitenants"})
+@EnableJpaRepositories({"com.demo.multitenants.publicDbConnection","com.clapcle.communication.repository"})
+//@EntityScan({"com.clapcle.communication.entity"})
+@EntityScan({"com.demo.multitenants.publicDbConnection", "com.clapcle.communication.entity"})
+
 public class MultitenantsApplication {
 
     @Autowired
