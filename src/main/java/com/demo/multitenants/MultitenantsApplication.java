@@ -13,8 +13,11 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +34,11 @@ public class MultitenantsApplication {
     private DbPropertyRepository dbPropertyRepository;
 
     @Autowired
+    private Environment environment;
+
+
+
+    @Autowired
     private ApplicationContext applicationContext;
 
     public static void main(String[] args) {
@@ -39,7 +47,7 @@ public class MultitenantsApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadTenants() {
-        Object datasourceMultitenant = applicationContext.getBean("datasourceMultitenant");
+        Object datasourceMultitenant = dataSource();
         if (datasourceMultitenant instanceof MultitenantDataSource multitenantDataSource) {
             System.out.println("MultitenantDataSource");
             TenantContext.setCurrentTenant("public");
@@ -60,6 +68,23 @@ public class MultitenantsApplication {
             System.err.println("Invalid datasource bean type: not supported");
         }
 
+    }
+
+    public DataSource dataSource() {
+        Map<Object, Object> resolvedDataSources = new HashMap<>();
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        String tenantId = "public";
+        dataSourceBuilder.driverClassName(environment.getProperty("spring.datasource.driver-class-name"));
+        dataSourceBuilder.username(environment.getProperty("spring.datasource.username"));
+        dataSourceBuilder.password(environment.getProperty("spring.datasource.password"));
+        dataSourceBuilder.url(environment.getProperty("spring.datasource.url"));
+        resolvedDataSources.put(tenantId, dataSourceBuilder.build());
+
+        AbstractRoutingDataSource dataSource = new MultitenantDataSource();
+        dataSource.setDefaultTargetDataSource(resolvedDataSources.get("public"));
+        dataSource.setTargetDataSources(resolvedDataSources);
+        dataSource.afterPropertiesSet();
+        return dataSource;
     }
 
 }
